@@ -2,7 +2,7 @@
     <html>
         <head>
         <meta charset="utf-8" />
-        <title>CS460 WebGPU</title>
+        <title>H5 WebGPU</title>
         <style>
         html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: black; }
         #displayCanvas { width: 100%; height: 100%; display: block; }
@@ -17,7 +17,7 @@
         let renderEngine = new BABYLON.WebGPUEngine(myCanvas, { antialiasing: true });
         await renderEngine.initAsync();
         const renderScene = new BABYLON.Scene(renderEngine);
-        await BABYLON.SceneLoader.AppendAsync("", "skull_poly.glb", renderScene);
+        await BABYLON.SceneLoader.AppendAsync("", "new_model.glb", renderScene);
         renderScene.createDefaultCameraOrLight(true, true, true);
         renderScene.activeCamera.attachControl(myCanvas, true);
         renderEngine.runRenderLoop(() => renderScene.render());
