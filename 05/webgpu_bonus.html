@@ -20,10 +20,11 @@
     const myScene = new BABYLON.Scene(myEngine);
     myScene.clearColor = new BABYLON.Color4(0.13, 0.14, 0.26, 1.0);
     const uiPane = new Pane();
-    const settings = { model: 'skull', rotate: true };
+    const settings = { model: 'mouth', rotate: true };
     myScene.environmentTexture = BABYLON.CubeTexture.CreateFromPrefilteredData("https://playground.babylonjs.com/textures/environment.env", myScene);
     // Camera
     const myCamera = new BABYLON.ArcRotateCamera("cam", Math.PI / 2, Math.PI / 2.4, 5, BABYLON.Vector3.Zero(), myScene);
+    myCamera.radius = 10;
     myCamera.attachControl(myCanvas, true);
     // Lights
     const hemiLight = new BABYLON.HemisphericLight("hemi", new BABYLON.Vector3(0, 1, 0), myScene);
@@ -32,7 +33,7 @@
     dirLight.intensity = 1.2;
     const importResult = await BABYLON.SceneLoader.ImportMeshAsync("", "", "new_model.glb", myScene);
     const modelMeshes = importResult.meshes.filter(m => m instanceof BABYLON.Mesh);
-    const pbrMat = new BABYLON.PBRMaterial("skullPBR", myScene);
+    const pbrMat = new BABYLON.PBRMaterial("mouthPBR", myScene);
     pbrMat.albedoColor = new BABYLON.Color3(1.0, 1.0, 1.0);
     pbrMat.metallic = 0.9;
     pbrMat.roughness = 0.15;
