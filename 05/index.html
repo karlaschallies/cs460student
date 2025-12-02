@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title> HW # 5 Karla </title>
+
+        <style>
+            html, body {
+                margin: 0; 
+                padding: 0;
+                height: 100%;
+                overflow: hidden;
+                background: #000000;
+            }
+        </style>
+
+        <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
+       
+        <script type="importmap"> 
+            {
+                "imports": {
+                    "three": "https://unpkg.com/three@latest/build/three.module.js",
+                    "three/addons/": "https://unpkg.com/three@latest/examples/jsm/"
+                }
+            }
+        </script>
+        
+        <script src="https://mrdoob.github.io/stats.js/build/stats.min.js"></script>
+    
+    </head>
+
+    <body>
+    <script type="module">
+        //Suggested imports
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        import { AnaglyphEffect } from 'three/addons/effects/AnaglyphEffect.js';
+        import { VertexNormalsHelper } from 'three/addons/helpers/VertexNormalsHelper.js';
+        import { Pane } from 'https://cdn.jsdelivr.net/npm/tweakpane@4.0.5/dist/tweakpane.min.js';
+
+        //Global variables to be used throughout the code 
+        let myScene, myCamera, myRenderer, myControls, stereoEffect, mainLight, softLight, performanceStats;
+
+        //Constant to be use across all of the functions
+        const modelLoader = new GLTFLoader();
+
+        // Tweakpane helper object
+        window.MY_ENV = {
+        stereoMode: false,
+        polyModel: null,
+        spinPoly: false,
+        togglePolySpin: () => { window.MY_ENV.spinPoly = !window.MY_ENV.spinPoly; },
+        blenderModel: null,
+        normalsHelper: null,
+        spinBlender: false,
+        toggleBlenderSpin: () => { window.MY_ENV.spinBlender = !window.MY_ENV.spinBlender; },
+        savedMaterial: null,
+        switchMaterial: function () {
+            if (!this.blenderModel) return;
+            if (!this.savedMaterial) {
+            this.savedMaterial = this.blenderModel.material.clone();
+            this.blenderModel.material = new THREE.MeshNormalMaterial();
+            } else {
+            this.blenderModel.material = this.savedMaterial.clone();
+            this.savedMaterial = null;
+            }
+        }
+        };
+
+        // Set up scene
+        myScene = new THREE.Scene();
+        // Set up camera 
+        myCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000);
+        myCamera.position.set(0, 10, 30);
+        // Set up Renderer
+        myRenderer = new THREE.WebGLRenderer({ antialias: true });
+        myRenderer.setPixelRatio(window.devicePixelRatio);
+        myRenderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(myRenderer.domElement);
+        // Set up the controls
+        myControls = new OrbitControls(myCamera, myRenderer.domElement);
+        // Set up the steroEffect 
+        stereoEffect = new AnaglyphEffect(myRenderer);
+        stereoEffect.setSize(window.innerWidth, window.innerHeight);
+        // Set up the mainLight
+        mainLight = new THREE.DirectionalLight(0xffffff, 1);
+        mainLight.position.set(5, 10, 7);
+        myScene.add(mainLight);
+        // Set up the ambLight
+        softLight = new THREE.AmbientLight(0x404060, 0.8);
+        myScene.add(softLight);
+        // performanceStats
+        performanceStats = new Stats();
+        document.body.appendChild(performanceStats.dom);
+
+        // Tweakpane
+        const uiPane = new Pane();
+        const ambientColor = { value: '#ffffff' };
+        const envFolder = uiPane.addFolder({ title: 'Scene' });
+        envFolder.addBinding(window.MY_ENV, 'stereoMode');
+        envFolder.addBinding(mainLight.position, 'x', { min: -100, max: 100, label: 'Light X' });
+        envFolder.addBinding(mainLight.position, 'y', { min: -100, max: 100, label: 'Light Y' });
+        envFolder.addBinding(mainLight.position, 'z', { min: -100, max: 100, label: 'Light Z' });
+        envFolder.addBinding(mainLight, 'intensity', { min: 0, max: 3, label: 'Light Intensity' });
+        envFolder.addBinding(ambientColor, 'value', { label: 'Ambient Color' }).on('change', ev => softLight.color.set(ev.value));
+
+        
+
+
+
+
+
+
+
+
+    </script>
+    </body>
+</html>
