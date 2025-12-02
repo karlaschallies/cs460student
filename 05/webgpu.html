@@ -1,0 +1,30 @@
+// Original PolyCam model
+modelLoader.load('old_model.glb', gltf => {
+  const polyObj = gltf.scene.children[0];
+  polyObj.scale.set(50, 50, 50);
+  polyObj.quaternion.set(0, 0, 0, 1);
+  polyObj.position.set(8, 0, 0);
+  myScene.add(gltf.scene);
+  window.MY_ENV.polyModel = polyObj;
+  const polyPanel = uiPane.addFolder({ title: 'PolyCam Mesh' });
+  polyPanel.addBinding(polyObj.material, 'wireframe');
+  polyPanel.addButton({ title: 'rotate!' }).on('click', () => window.MY_ENV.togglePolySpin());
+});
+
+// Edited Blender model
+modelLoader.load('new_model.glb', gltf => {
+  const blenderObj = gltf.scene.children[0];
+  blenderObj.scale.set(50, 50, 50);
+  blenderObj.quaternion.set(0, 0, 0, 1);
+  blenderObj.position.set(-8, 0, 0);
+  myScene.add(gltf.scene);
+  window.MY_ENV.blenderModel = blenderObj;
+  const helperObj = new VertexNormalsHelper(blenderObj, 0.15, 0x00ffff);
+  helperObj.visible = false;
+  myScene.add(helperObj);
+  window.MY_ENV.normalsHelper = helperObj;
+  const blenderPanel = uiPane.addFolder({ title: 'Blender Mesh' });
+  blenderPanel.addBinding(helperObj, 'visible', { label: 'Show normals!' });
+  blenderPanel.addButton({ title: 'Change Material!' }).on('click', () => window.MY_ENV.switchMaterial());
+  blenderPanel.addButton({ title: 'rotate!' }).on('click', () => window.MY_ENV.toggleBlenderSpin());
+});

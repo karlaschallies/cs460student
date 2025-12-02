@@ -45,6 +45,9 @@
         //Constant to be use across all of the functions
         const modelLoader = new GLTFLoader();
 
+        // To fix the texture loading on GitHub Pages
+        modelLoader.manager.setURLModifier(url => url);
+
         // Tweakpane helper object
         window.MY_ENV = {
         stereoMode: false,
@@ -105,14 +108,69 @@
         envFolder.addBinding(mainLight, 'intensity', { min: 0, max: 3, label: 'Light Intensity' });
         envFolder.addBinding(ambientColor, 'value', { label: 'Ambient Color' }).on('change', ev => softLight.color.set(ev.value));
 
-        
+        // Load PolyCam model without changes
+        modelLoader.load('old_model.glb', gltf => {
+            const polyObj = gltf.scene.children[0];
+            polyObj.scale.set(50, 50, 50);
+            polyObj.quaternion.set(0, 0, 0, 1);
+            polyObj.position.set(8, 0, 0);
+            myScene.add(gltf.scene);
+            window.MY_ENV.polyModel = polyObj;
+            const polyPanel = uiPane.addFolder({ title: 'PolyCam Mesh' });
+            polyPanel.addBinding(polyObj.material, 'wireframe');
+            polyPanel.addButton({ title: 'rotate!' }).on('click', () => window.MY_ENV.togglePolySpin());
+        });
 
+        // Loading Blender model after edits
+        modelLoader.load('new_model.glb', gltf => {
+            const blenderObj = gltf.scene.children[0];
+            blenderObj.scale.set(50, 50, 50);
+            blenderObj.quaternion.set(0, 0, 0, 1);
+            blenderObj.position.set(-8, 0, 0);
+            myScene.add(gltf.scene);
+            window.MY_ENV.blenderModel = blenderObj;
+            const helperObj = new VertexNormalsHelper(blenderObj, 0.15, 0x00ffff);
+            helperObj.visible = false;
+            myScene.add(helperObj);
+            window.MY_ENV.normalsHelper = helperObj;
+            const blenderPanel = uiPane.addFolder({ title: 'Blender Mesh' });
+            blenderPanel.addBinding(helperObj, 'visible', { label: 'Show normals!' });
+            blenderPanel.addButton({ title: 'Change Material!' }).on('click', () => window.MY_ENV.switchMaterial());
+            blenderPanel.addButton({ title: 'rotate!' }).on('click', () => window.MY_ENV.toggleBlenderSpin());
+        });
 
+    // Resize
+    window.addEventListener('resize', () => {
+        myCamera.aspect = window.innerWidth / window.innerHeight;
+        myCamera.updateProjectionMatrix();
+        myRenderer.setSize(window.innerWidth, window.innerHeight);
+        stereoEffect.setSize(window.innerWidth, window.innerHeight);
+    });
 
-
-
-
-
+    // Animation loop
+    function animateLoop() {
+        requestAnimationFrame(animateLoop);
+        // PolyCam rotation
+        if (window.MY_ENV.polyModel) {
+            const desiredRotation = window.MY_ENV.spinPoly
+            ? new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)
+            : new THREE.Quaternion(0, 0, 0, 1);
+            window.MY_ENV.polyModel.quaternion.slerp(desiredRotation, 0.02);
+        }
+        // Blender rotation + update normals helper
+        if (window.MY_ENV.blenderModel) {
+            const desiredRotation = window.MY_ENV.spinBlender
+            ? new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI)
+            : new THREE.Quaternion(0, 0, 0, 1);
+            window.MY_ENV.blenderModel.quaternion.slerp(desiredRotation, 0.02);
+            if (window.MY_ENV.normalsHelper) window.MY_ENV.normalsHelper.update();
+        }
+        myControls.update();
+        if (window.MY_ENV.stereoMode) stereoEffect.render(myScene, myCamera);
+        else myRenderer.render(myScene, myCamera);
+        performanceStats.update();
+        }
+        animateLoop();
 
     </script>
     </body>
