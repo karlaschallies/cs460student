@@ -27,6 +27,12 @@ Hotspots are anchored to exact model locations using captured coordinates (`data
 ## Live Demo
 - GitHub Pages: https://karlaschallies.github.io/cs460student/
 
+- ## Screenshots
+
+![Animal cell overview](assets/screenshots/animalcell-overview.png)
+
+![Expanded hotspot example](assets/screenshots/animalcell-expanded.png)
+
 ---
 
 ## How It Runs (Technical)
