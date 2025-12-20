@@ -28,11 +28,9 @@ Hotspots are anchored to exact model locations using captured coordinates (`data
 - GitHub Pages: https://karlaschallies.github.io/cs460student/
 
 - ## Screenshots
-![Animal Cell Screenshot 1](animalcell_1.png)
 
-![Animal Cell Screenshot 2](animalcell_2.png)
-
-<img src="animalcell_1.png" width="900" alt="Animal Cell Screenshot 1">
+<img src="animalcell_1.png" width="600" alt="Animal Cell Screenshot 1">
+<img src="animalcell_1.png" width="600" alt="Animal Cell Screenshot 1">
 
 
 
