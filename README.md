@@ -29,9 +29,13 @@ Hotspots are anchored to exact model locations using captured coordinates (`data
 
 - ## Screenshots
 ![Animal Cell Screenshot 1](animalcell_1.png)
-sips -Z 2000 animalcell_1.png
+
 ![Animal Cell Screenshot 2](animalcell_2.png)
-sips -Z 2000 animalcell_2.png
+
+sips -Z 600 animalcell_1.png
+sips -Z 600 animalcell_2.png
+
+
 ---
 
 ## How It Runs (Technical)
