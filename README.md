@@ -55,3 +55,19 @@ From the project folder:
 
 ```bash
 python3 -m http.server 8000
+
+Then open:
+http://localhost:8000
+
+## Future Updates (Planned)
+AR functionality is not ready yet.
+The next milestone is enabling AR on mobile devices via WebXR (and iOS Quick Look support using a .usdz model). When complete, the model should activate AR from supported phones directly through the webpage.
+Add additional structures (plant cell, prokaryote, enveloped virus) to build a full AR study guide set.
+Improve UI/UX for mobile (larger tap targets, better text layout, option
+
+## AI disclosure 
+This project was developed with the assistance of Karla B. Schallies and AI tools (ChatGPT) for instructional design guidance, technical
+support from Manik Sharma, and content structuring by Karla Schallies. All scientific content was reviewed, edited, and approved by Karla Schallies to align
+with course learning objectives.
+
+
