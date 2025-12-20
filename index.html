@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AR Animal Cell Study Guide</title>
+
+  <!-- model-viewer (WebXR / AR) -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }
+    model-viewer { width: 100%; height: 520px; background: #f4f4f4; border: 1px solid #ddd; }
+
+    /* ===== Hotspot pin ===== */
+    .hotspot-pin {
+      position: relative;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      border: 2px solid #111;
+      background: #fff;
+      cursor: pointer;
+      padding: 0;
+      z-index: 10;
+    }
+    .hotspot-pin::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 14px;
+      background: #111;
+    }
+
+    /* ===== Collapsed label (name only) ===== */
+    .hotspot-pin .label {
+      position: absolute;
+      left: 18px;
+      top: -10px;
+      background: rgba(255,255,255,0.97);
+      border: 1px solid #111;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.82em;
+      white-space: nowrap;
+      line-height: 1.2;
+      pointer-events: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+    }
+
+    /* ===== Expanded details (hidden by default) ===== */
+    .hotspot-pin .details {
+      display: none;
+      position: absolute;
+      left: 18px;
+      top: 18px;
+      background: #fff;
+      border: 1px solid #111;
+      border-radius: 10px;
+      padding: 10px 12px;
+      max-width: 460px;
+      font-size: 0.85em;
+      white-space: normal;
+      z-index: 9999;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.18);
+    }
+    .hotspot-pin.expanded .details { display: block; }
+
+    .note { font-size: 0.9em; color: #333; }
+    h2 { margin-top: 30px; }
+  </style>
+</head>
+
+<body>
+
+<h1>Augmented Reality Animal Cell Study Guide</h1>
+
+<p class="note">
+This interactive model allows students to explore the internal structures of a eukaryotic animal cell.
+On mobile devices, the model can be viewed in augmented reality (AR). Click a hotspot to expand its
+description. Click anywhere else to collapse.
+</p>
+
+<!-- ================= ANIMAL CELL MODEL ================= -->
+<model-viewer
+  id="mv"
+  src="animal_cell.glb"
+  ar
+  ar-modes="scene-viewer webxr quick-look"
+  camera-controls
+  shadow-intensity="1">
+
+  <!-- Nucleus -->
+  <button class="hotspot-pin"
+    slot="hotspot-nucleus"
+    data-position="-29.5002m 106.0425m 49.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Nucleus">
+    <span class="label">Nucleus</span>
+    <span class="details">
+      <b>Nucleus:</b>
+      Membrane-bound organelle that contains the cell’s DNA and regulates gene expression,
+      earning it the role of the cell’s control center.
+    </span>
+  </button>
+
+  <!-- Nuclear Envelope -->
+  <button class="hotspot-pin"
+    slot="hotspot-nuclear-envelope"
+    data-position="-41.3541m 106.1113m 49.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Nuclear envelope">
+    <span class="label">Nuclear envelope</span>
+    <span class="details">
+      <b>Nuclear envelope:</b>
+      Double membrane that surrounds the nucleus and contains nuclear pores that regulate
+      transport of materials in and out of the nucleus.
+    </span>
+  </button>
+
+  <!-- Nucleolus -->
+  <button class="hotspot-pin"
+    slot="hotspot-nucleolus"
+    data-position="-21.3770m 111.0980m 49.2220m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Nucleolus">
+    <span class="label">Nucleolus</span>
+    <span class="details">
+      <b>Nucleolus:</b>
+      Dense region within the nucleus that contains large amounts of RNA and is the site
+      where ribosomal subunits are assembled.
+    </span>
+  </button>
+
+  <!-- Nucleoplasm -->
+  <button class="hotspot-pin"
+    slot="hotspot-nucleoplasm"
+    data-position="-29.1761m 125.2525m 48.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Nucleoplasm">
+    <span class="label">Nucleoplasm</span>
+    <span class="details">
+      <b>Nucleoplasm:</b>
+      Semifluid substance found inside of the nucleus.
+    </span>
+  </button>
+
+  <!-- Cytoplasm -->
+  <button class="hotspot-pin"
+    slot="hotspot-cytoplasm"
+    data-position="-11.5557m 149.3260m 50.7500m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Cytoplasm">
+    <span class="label">Cytoplasm</span>
+    <span class="details">
+      <b>Cytoplasm:</b>
+      Semifluid substance found inside of the cell.
+    </span>
+  </button>
+
+  <!-- Ribosomes -->
+  <button class="hotspot-pin"
+    slot="hotspot-ribosomes"
+    data-position="-16.3092m 74.0054m 48.4080m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Ribosomes">
+    <span class="label">Ribosomes</span>
+    <span class="details">
+      <b>Ribosomes:</b>
+      Structures in charge of protein synthesis made of two parts. The top part is responsible
+      for extending the peptide and the bottom portion helps ensure accuracy during peptide
+      synthesis. Ribosomes can be free in the cytoplasm or attached to the rough ER.
+    </span>
+  </button>
+
+  <!-- Rough ER -->
+  <button class="hotspot-pin"
+    slot="hotspot-rer"
+    data-position="-9.1799m 88.0001m 50.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Rough Endoplasmic Reticulum">
+    <span class="label">Rough ER</span>
+    <span class="details">
+      <b>Rough Endoplasmic Reticulum (RER):</b>
+      Extensive membrane system studded with ribosomes where proteins destined for secretion
+      or membranes are synthesized and initially modified.
+    </span>
+  </button>
+
+  <!-- Smooth ER -->
+  <button class="hotspot-pin"
+    slot="hotspot-ser"
+    data-position="-34.5470m 60.7508m 50.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Smooth Endoplasmic Reticulum">
+    <span class="label">Smooth ER</span>
+    <span class="details">
+      <b>Smooth Endoplasmic Reticulum (SER):</b>
+      Extensive membrane system where enzymes synthesize lipids and detoxification occurs.
+    </span>
+  </button>
+
+  <!-- Mitochondrion -->
+  <button class="hotspot-pin"
+    slot="hotspot-mitochondrion"
+    data-position="38.4740m 50.3195m 50.9920m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Mitochondrion">
+    <span class="label">Mitochondrion</span>
+    <span class="details">
+      <b>Mitochondrion:</b>
+      Organelle where cellular respiration occurs, producing ATP for the cell. Mitochondria
+      have a double membrane, their own DNA, and can replicate independently, supporting
+      the endosymbiotic theory.
+    </span>
+  </button>
+
+  <!-- Golgi -->
+  <button class="hotspot-pin"
+    slot="hotspot-golgi"
+    data-position="34.2149m 98.5155m 50.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Golgi apparatus">
+    <span class="label">Golgi</span>
+    <span class="details">
+      <b>Golgi apparatus:</b>
+      Receives substances transported from the endoplasmic reticulum to modify their
+      structure, sort them, package them into vesicles, or store them.
+    </span>
+  </button>
+
+  <!-- Vacuole -->
+  <button class="hotspot-pin"
+    slot="hotspot-vacuole"
+    data-position="25.6947m 28.1618m 48.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Vacuole">
+    <span class="label">Vacuole</span>
+    <span class="details">
+      <b>Vacuoles:</b>
+      Small membrane bound structures that stores substances such as starch, glycogen, or fat.
+    </span>
+  </button>
+
+  <!-- Lysosome -->
+  <button class="hotspot-pin"
+    slot="hotspot-lysosome"
+    data-position="-45.7477m 50.8724m 48.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Lysosome">
+    <span class="label">Lysosome</span>
+    <span class="details">
+      <b>Lysosomes:</b>
+      Small membrane bound structures that contain digestive enzymes that can be used for
+      waste breakdown, recycling, and fusion with food-containing vacuoles.
+    </span>
+  </button>
+
+  <!-- Peroxisomes -->
+  <button class="hotspot-pin"
+    slot="hotspot-peroxisomes"
+    data-position="-34.3327m 33.2741m 48.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Peroxisomes">
+    <span class="label">Peroxisomes</span>
+    <span class="details">
+      <b>Peroxisomes:</b>
+      Small membrane bound structures that contain enzymes useful for the cell.
+    </span>
+  </button>
+
+  <!-- Vesicles -->
+  <button class="hotspot-pin"
+    slot="hotspot-vesicle"
+    data-position="-55.2566m 71.8290m 48.0000m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Vesicle">
+    <span class="label">Vesicle</span>
+    <span class="details">
+      <b>Vesicles:</b>
+      Small membrane bound structures that help with the uptake of nutrients and transport
+      of materials throughout the cell.
+    </span>
+  </button>
+
+  <!-- Centrioles -->
+  <button class="hotspot-pin"
+    slot="hotspot-centrioles"
+    data-position="-61.2452m 103.3850m 48.4080m"
+    data-normal="0.0000m -0.0000m 1.0000m"
+    aria-label="Centrioles">
+    <span class="label">Centrioles</span>
+    <span class="details">
+      <b>Centrosome/Centrioles:</b>
+      Organizes microtubules used during cell division.
+    </span>
+  </button>
+
+  <!-- Plasma Membrane -->
+  <button class="hotspot-pin"
+    slot="hotspot-membrane"
+    data-position="-49.8768m 15.4866m 48.2243m"
+    data-normal="-0.5729m -0.8181m -0.0502m"
+    aria-label="Plasma membrane">
+    <span class="label">Membrane</span>
+    <span class="details">
+      <b>Plasma membrane (cell membrane):</b>
+      Fluid mosaic structure composed of lipids and proteins that separates the interior
+      of the cell from the external environment and selectively controls what enters and
+      exits the cell.
+    </span>
+  </button>
+
+</model-viewer>
+
+<!-- ================= TEXT-ONLY STRUCTURES ================= -->
+<h2>Structures Not Represented in This Model</h2>
+<p>
+This generalized animal cell model focuses on internal organelles. The following structures are specialized
+features found only in certain animal cell types and are therefore not shown.
+</p>
+
+<h3>Chromosomes</h3>
+<p>
+Organized structures of linear DNA associated with proteins (histones) that contain genetic information.
+</p>
+
+<h3>DNA</h3>
+<p>
+Molecule that contains the genetic blueprint of the organism, encoding the instructions for protein synthesis and cellular function.
+</p>
+
+<h3>Cytoskeleton</h3>
+<p>
+Network of protein fibers, including microfilaments and microtubules, that provides structure, shape, and support, and aids in intracellular transport and cell movement.
+</p>
+
+<h3>Cilia</h3>
+<p>
+Small but numerous external projections that beat in a coordinated pattern to create waves that move fluids
+such as mucus across the cell surface.
+</p>
+
+<h3>Flagella</h3>
+<p>
+Long, whip-like structure composed of microtubules arranged in a 9+2 pattern that provides motility to the cell.
+</p>
+
+<h3>Pseudopods</h3>
+<p>
+Temporary projections of the cytoplasm that allow the cell to move by extending toward a desired location,
+resembling “false feet.”
+</p>
+
+<!-- ================= AI DISCLOSURE ================= -->
+<h2>AI Use Disclosure</h2>
+<p>
+This project was developed with the assistance of Karla B. Schallies and AI tools (ChatGPT) for instructional design guidance, technical
+support from Manik Sharma, and content structuring by Karla Schallies. All scientific content was reviewed, edited, and approved by Karla Schallies to align
+with course learning objectives.
+</p>
+
+<script>
+  // --- Expand/collapse hotspot details on click ---
+  const hotspotButtons = Array.from(document.querySelectorAll('.hotspot-pin'));
+
+  function collapseAll() {
+    hotspotButtons.forEach(b => b.classList.remove('expanded'));
+  }
+
+  hotspotButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isExpanded = btn.classList.contains('expanded');
+      collapseAll();
+      if (!isExpanded) btn.classList.add('expanded');
+    });
+  });
+
+  // Click anywhere else collapses all open details
+  document.addEventListener('click', () => collapseAll());
+</script>
+
+</body>
+</html>
