@@ -28,10 +28,8 @@ Hotspots are anchored to exact model locations using captured coordinates (`data
 - GitHub Pages: https://karlaschallies.github.io/cs460student/
 
 - ## Screenshots
-
-animalcell_1.png
-
-(assets/screenshots/animalcell_2.png)
+![Animal Cell Screenshot 1](assets/screenshots/animalcell_1.png)
+![Animal Cell Screenshot 2](assets/screenshots/animalcell_2.png)
 
 ---
 
