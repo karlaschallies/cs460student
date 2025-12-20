@@ -59,6 +59,8 @@ python3 -m http.server 8000
 Then open:
 http://localhost:8000
 
+---
+
 ## Future Updates (Planned)
 AR functionality is not ready yet.
 The next milestone is enabling AR on mobile devices via WebXR (and iOS Quick Look support using a .usdz model). When complete, the model should activate AR from supported phones directly through the webpage.
